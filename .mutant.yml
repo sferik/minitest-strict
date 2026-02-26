@@ -1,0 +1,22 @@
+usage: opensource
+integration:
+  name: minitest
+requires:
+  - minitest/strict
+includes:
+  - lib
+  - test
+matcher:
+  subjects:
+    - "Minitest::Assertions#assert_true"
+    - "Minitest::Assertions#assert_false"
+    - "Minitest::Assertions#refute_true"
+    - "Minitest::Assertions#refute_false"
+    - "Minitest::Assertions#assert_eql"
+    - "Minitest::Assertions#refute_eql"
+    - "Minitest::Assertions#assert_predicate"
+    - "Minitest::Assertions#refute_predicate"
+    - "Minitest::Assertions#assert_operator"
+    - "Minitest::Assertions#refute_operator"
+    - "Minitest::Assertions#assert_nil"
+    - "Minitest::Assertions#refute_nil"

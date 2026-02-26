@@ -1,0 +1,47 @@
+module Minitest
+  module Strict
+    VERSION: String
+  end
+
+  module Assertions
+    # New assertions
+
+    # Fails unless `obj` is literally `true` (not just truthy).
+    def assert_true: (untyped obj, ?untyped? msg) -> true
+
+    # Fails unless `obj` is literally `false` (not just falsey).
+    def assert_false: (untyped obj, ?untyped? msg) -> true
+
+    # Fails if `obj` is literally `true`.
+    def refute_true: (untyped obj, ?untyped? msg) -> true
+
+    # Fails if `obj` is literally `false`.
+    def refute_false: (untyped obj, ?untyped? msg) -> true
+
+    # Fails unless `act` is eql? to `exp`.
+    def assert_eql: (untyped exp, untyped act, ?untyped? msg) -> true
+
+    # Fails if `act` is eql? to `exp`.
+    def refute_eql: (untyped exp, untyped act, ?untyped? msg) -> true
+
+    # Strict redefinitions
+
+    # Fails unless `o1.op` returns literal `true`.
+    def assert_predicate: (untyped o1, Symbol op, ?untyped? msg) -> true
+
+    # Fails unless `o1.op` returns literal `false`.
+    def refute_predicate: (untyped o1, Symbol op, ?untyped? msg) -> true
+
+    # Fails unless `o1.send(op, o2)` returns literal `true`.
+    def assert_operator: (untyped o1, Symbol op, ?untyped o2, ?untyped? msg) -> true
+
+    # Fails unless `o1.send(op, o2)` returns literal `false`.
+    def refute_operator: (untyped o1, Symbol op, ?untyped o2, ?untyped? msg) -> true
+
+    # Fails unless `obj` is nil. Uses `equal?` for identity check.
+    def assert_nil: (untyped obj, ?untyped? msg) -> true
+
+    # Fails if `obj` is nil. Uses `equal?` for identity check.
+    def refute_nil: (untyped obj, ?untyped? msg) -> true
+  end
+end
