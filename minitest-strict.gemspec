@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Strict assertions for Minitest"
   spec.description = "Redefines Minitest assertions to require strict boolean return values " \
                      "and adds assert_true, assert_false, and assert_eql."
-  spec.homepage = "https://github.com/sferik/minitest-strict"
+  spec.homepage = "https://sferik.github.io/minitest-strict"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2"
   spec.metadata = {
