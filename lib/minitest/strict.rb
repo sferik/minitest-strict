@@ -121,6 +121,21 @@ module Minitest
     end
 
     ##
+    # Fails if +matcher+ matches +obj+. Redefined because Minitest 6
+    # implements this via refute_operator, but <tt>=~</tt> returns nil
+    # or an Integer -- never +false+ -- so the strict refute_operator
+    # above would fail even when +matcher+ does not match. There is no
+    # boolean contract to enforce here, so this restores the standard
+    # Minitest 5 behavior.
+
+    def refute_match matcher, obj, msg = nil
+      assert_respond_to matcher, :=~
+      msg = message(msg) { "Expected #{mu_pp matcher} to not match #{mu_pp obj}" }
+      matcher = Regexp.new Regexp.escape matcher if matcher.is_a?(String)
+      refute matcher =~ obj, msg
+    end
+
+    ##
     # Fails unless +obj+ is nil. Uses +equal?+ for identity check.
 
     def assert_nil obj, msg = nil

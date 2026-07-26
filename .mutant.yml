@@ -18,5 +18,6 @@ matcher:
     - "Minitest::Assertions#refute_predicate"
     - "Minitest::Assertions#assert_operator"
     - "Minitest::Assertions#refute_operator"
+    - "Minitest::Assertions#refute_match"
     - "Minitest::Assertions#assert_nil"
     - "Minitest::Assertions#refute_nil"

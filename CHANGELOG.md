@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-07-26
+
+### Fixed
+
+- `refute_match` no longer always fails on Minitest 6, which reimplemented it
+  via `refute_operator`. Since `=~` returns `nil` or an `Integer` — never
+  `false` — the strict `refute_operator` rejected every non-match.
+  minitest-strict now defines `refute_match` directly, restoring the standard
+  Minitest 5 behavior. ([#1](https://github.com/sferik/minitest-strict/issues/1))
+
 ## [1.0.0] - 2026-02-26
 
 ### Added

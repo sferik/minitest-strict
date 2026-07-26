@@ -117,6 +117,13 @@ refute_predicate 0, :nonzero?       # fail — returns nil, not false
 
 ### `assert_operator` / `refute_operator`
 
+> [!WARNING]
+> Operators like `=~` return non-boolean values (`nil` or an `Integer`), so
+> they will always fail with minitest-strict's `assert_operator` and
+> `refute_operator`. Assert on the actual return value instead: use
+> `assert_match` / `refute_match`, or `assert_equal 2, x =~ y` to pin the
+> match position, or `assert_nil x =~ y` for a non-match.
+
 Requires operators to return exactly `true` or `false`.
 
 ```ruby
@@ -130,6 +137,27 @@ refute_operator 1, :<, 2           # fail — returns true
 obj.define_singleton_method(:<=>) { |_| 1 }
 assert_operator obj, :<=>, 2       # fail — returns 1, not true
 ```
+
+### `refute_match`
+
+> [!NOTE]
+> This one is redefined for compatibility, not strictness. Minitest 6
+> implements `refute_match` via `refute_operator`, but `=~` returns `nil` or
+> an `Integer` — never `false` — so the strict `refute_operator` would reject
+> every non-match. minitest-strict defines `refute_match` directly, preserving
+> the standard behavior on both Minitest 5 and 6.
+
+```ruby
+refute_match(/nope/, "hello world")   # pass
+refute_match(/hello/, "hello world")  # fail
+```
+
+> [!WARNING]
+> Rails aliases `assert_no_match` to `refute_match` when
+> `ActiveSupport::TestCase` loads, and `alias` copies the method body at that
+> moment. On Minitest 6, require `minitest/strict` **before**
+> `rails/test_help` so `assert_no_match` picks up the fixed implementation —
+> or use `refute_match` directly.
 
 ### `assert_nil` / `refute_nil`
 

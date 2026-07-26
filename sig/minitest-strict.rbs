@@ -38,6 +38,10 @@ module Minitest
     # Fails unless `o1.send(op, o2)` returns literal `false`.
     def refute_operator: (untyped o1, Symbol op, ?untyped o2, ?untyped? msg) -> true
 
+    # Fails if `matcher` matches `obj`. Restores standard behavior on
+    # Minitest 6, where the built-in delegates to the strict refute_operator.
+    def refute_match: (untyped matcher, untyped obj, ?untyped? msg) -> true
+
     # Fails unless `obj` is nil. Uses `equal?` for identity check.
     def assert_nil: (untyped obj, ?untyped? msg) -> true
 

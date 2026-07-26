@@ -403,6 +403,73 @@ class TestMinitestStrict < Minitest::Test
     @tc.refute_operator obj, :gt?, 1
   end
 
+  # refute_match (redefined)
+
+  def test_refute_match
+    @assertion_count = 2
+
+    @tc.refute_match(/nope/, "hello world")
+  end
+
+  def test_refute_match_matched_object
+    @assertion_count = 2
+
+    obj = Object.new
+    obj.define_singleton_method(:=~) { |_| nil }
+
+    @tc.refute_match obj, "hello world"
+  end
+
+  def test_refute_match_string_matcher
+    @assertion_count = 2
+
+    @tc.refute_match "nope", "hello world"
+  end
+
+  def test_refute_match_string_subclass_matcher
+    @assertion_count = 2
+
+    matcher = Class.new(String).new("nope")
+
+    @tc.refute_match matcher, "hello world"
+  end
+
+  def test_refute_match_string_matcher_escaped
+    @assertion_count = 2
+
+    @tc.refute_match ".", "a"
+  end
+
+  def test_refute_match__triggered
+    @assertion_count = 2
+
+    assert_triggered 'Expected /hello/ to not match "hello world".' do
+      @tc.refute_match(/hello/, "hello world")
+    end
+  end
+
+  def test_refute_match__triggered_string_matcher
+    @assertion_count = 2
+
+    assert_triggered 'Expected /hello/ to not match "hello world".' do
+      @tc.refute_match "hello", "hello world"
+    end
+  end
+
+  def test_refute_match__matcher_without_match_operator
+    assert_triggered "Expected 5 (Integer) to respond to #=~." do
+      @tc.refute_match 5, "hello world"
+    end
+  end
+
+  def test_refute_match__custom_message
+    @assertion_count = 2
+
+    assert_triggered(/custom/) do
+      @tc.refute_match(/hello/, "hello world", "custom")
+    end
+  end
+
   # assert_nil (strict)
 
   def test_assert_nil
